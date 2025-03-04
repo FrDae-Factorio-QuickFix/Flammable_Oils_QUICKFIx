@@ -1,4 +1,7 @@
-local flammable_types = 
+local flammable_types
+
+init_flammable_types = function()
+  global.flammable_types =
   {
     ["crude-oil"] = true,
     ["heavy-oil"] = true,
@@ -34,37 +37,64 @@ local flammable_types =
     ["diesel-fuel"] = true,
     ["petroleum-gas"] = true
   }
+  flammable_types = global.flammable_types
+end
+
+script.on_init(init_flammable_types)
+script.on_configuration_changed(function()
+  if not global.flammable_types then
+    init_flammable_types()
+  end
+  flammable_types = global.flammable_types
+end)
+
+script.on_load(function()
+  flammable_types = global.flammable_types
+end)
+
+remote.add_interface("flammable_oils", 
+{
+  add_flammable_type = function(name)
+    global.flammable_types[name] = true
+  end,
+  remove_flammable_type = function(name)
+    global.flammable_types[name] = nil
+  end,
+  get_flammable_types = function()
+    return global.flammable_types
+  end
+})
+
+
 
 script.on_event(defines.events.on_entity_died, function(event)
-
   local entity = event.entity
   local boxes = entity.fluidbox
   local num_pots = #boxes
   if num_pots == 0 then return end
+  local fluids = game.fluid_prototypes
   for k = 1, num_pots do
     local pot = boxes[k]
     if pot then 
-      if flammable_types[pot.type] then
+      if flammable_types[pot.name] then
         local fraction = pot.amount/boxes.get_capacity(k)
         if fraction > 0.025 then 
-          flammable_explosion(entity, fraction)
-          return
+          return flammable_explosion(entity, fraction)
         end
       end
     end
   end
-  
 end)
 
-function flammable_explosion(entity,fraction)
+function flammable_explosion(entity, fraction)
 
   if not entity.valid then return end
   local pos = entity.position
   local surface = entity.surface
-  local radius = 0.5*((entity.bounding_box.right_bottom.x - pos.x)+(entity.bounding_box.right_bottom.y - pos.y))
+  local radius = 0.5 * ((entity.bounding_box.right_bottom.x - pos.x) + (entity.bounding_box.right_bottom.y - pos.y))
   local width = radius * 2
-  local area = {{pos.x-(radius+0.5),pos.y-(radius+0.5)},{pos.x+(radius+0.5),pos.y+(radius+0.5)}}
-  local damage = (math.random(10,30)+10)*fraction
+  local area = {{pos.x - (radius + 0.5),pos.y - (radius + 0.5)},{pos.x + (radius + 0.5),pos.y + (radius + 0.5)}}
+  local damage = math.random(20, 40) * fraction
   
   if width <= 1 then
     entity.surface.create_entity{name = "explosion", position = pos}
@@ -73,8 +103,8 @@ function flammable_explosion(entity,fraction)
     surface.create_entity{name = "medium-explosion", position = {pos.x+math.random(-radius,radius), pos.y+math.random(-radius,radius)}}
     for k = 1, math.ceil(width) do
       surface.create_entity{name = "oil-fire-flame", position = {pos.x+math.random(-radius,radius), pos.y+math.random(-radius,radius)}}
-      for j = 1, math.ceil(4*fraction) do
-        local burst = width+(2*fraction)
+      for j = 1, math.ceil(4 * fraction) do
+        local burst = width + (2 * fraction)
         surface.create_entity{name = "oil-fire-flame", position = {pos.x+math.random(-burst,burst), pos.y+math.random(-burst,burst)}}
       end
     end
@@ -82,23 +112,19 @@ function flammable_explosion(entity,fraction)
   
   if entity.type == "pipe-to-ground" then
     if entity.neighbours then
-      local neighbour = entity.neighbours[2]
-      if neighbour then
-        if neighbour.valid then
-          if neighbour.type == "pipe-to-ground" then
-            surface.create_entity{name = "oil-fire-flame", position = neighbour.position}
-            neighbour.damage(damage,entity.force,"explosion")
-          end
+      for k, neighbour in pairs (entity.neighbours[1]) do
+        if neighbour and neighbour.valid and (neighbour.type == "pipe-to-ground") then
+          surface.create_entity{name = "oil-fire-flame", position = neighbour.position}
+          neighbour.damage(damage, entity.force, "explosion")
+          break
         end
       end
     end
   end
   
   for k, nearby in pairs (surface.find_entities(area)) do
-    if nearby.valid then
-      if nearby.health then
-        nearby.damage(damage,entity.force,"explosion")
-      end
+    if nearby.valid and nearby.health then
+      nearby.damage(damage, entity.force, "explosion")
     end
   end
 
