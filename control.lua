@@ -6,7 +6,7 @@ init_flammable_types = function()
     ["crude-oil"] = true,
     ["heavy-oil"] = true,
     ["light-oil"] = true,
-    ["lubricant"] = true,
+    ["lubricant"] = false,
     ["gas-hydrogen"] = true,
     ["gas-methane"] = true,
     ["gas-ethane"] = true,
@@ -38,6 +38,12 @@ init_flammable_types = function()
     ["petroleum-gas"] = true,
     ["water"] = false,
     ["sulfuric-acid "] = false
+    ["molten-tiberium"] = true
+    ["tiberium-waste"] = false
+    ["tiberium-sludge"] = false
+    ["tiberium-slurry"] = false
+    ["liquid-tiberium"] = true
+    ["tiberium-slurry-blue"] = false
   }
   flammable_types = global.flammable_types
 end
@@ -79,16 +85,20 @@ script.on_event(defines.events.on_entity_died, function(event)
     local pot = boxes[k]
     if pot then 
       if flammable_types[pot.name] then
+        local fluid = fluids[pot.name]
+        -- boiler produces 0.5 pollution per second at 1.8 MW power
+        -- calculate polution as if this was being burned in a boiler
+        local pollution = fluid.fuel_value / 1.8e6 * 0.5 * fluid.emissions_multiplier * pot.amount /1.5
         local fraction = pot.amount/boxes.get_capacity(k)
         if fraction > 0.025 then 
-          return flammable_explosion(entity, fraction)
+          return flammable_explosion(entity, fraction, pollution)
         end
       end
     end
   end
 end)
 
-function flammable_explosion(entity, fraction)
+function flammable_explosion(entity, fraction, pollution)
 
   if not entity.valid then return end
   local pos = entity.position
@@ -97,6 +107,8 @@ function flammable_explosion(entity, fraction)
   local width = radius * 2
   local area = {{pos.x - (radius + 0.5),pos.y - (radius + 0.5)},{pos.x + (radius + 0.5),pos.y + (radius + 0.5)}}
   local damage = math.random(20, 40) * fraction
+  
+  surface.pollute(pos, pollution)
   
   if width <= 1 then
     entity.surface.create_entity{name = "explosion", position = pos}

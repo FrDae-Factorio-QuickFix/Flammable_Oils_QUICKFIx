@@ -10,7 +10,7 @@ local fuel_values = {
   ["light-oil"] = "0.9MJ",
   ["heavy-oil"] = "0.45MJ",
   ["petroleum-gas"] = "0.45MJ",
-  ["diesel-fuel"] = "1.1MJ"
+  ["diesel-fuel"] = "1.1MJ",
   }
 local emissions = {
   ["crude-oil"] = 1.4,
@@ -18,6 +18,12 @@ local emissions = {
   ["heavy-oil"] = 1.3,
   ["petroleum-gas"] = 1,
   ["diesel-fuel"] = 0.8
+  ["molten-tiberium"] = 2.1,
+  ["tiberium-waste"] = 1.2,
+  ["tiberium-sludge"] = 1.7,
+  ["tiberium-slurry"] = 1.8,
+  ["liquid-tiberium"] = 4,
+  ["tiberium-slurry-blue"] = 3,
 }
 
 for k, fluid in pairs (data.raw.fluid) do
