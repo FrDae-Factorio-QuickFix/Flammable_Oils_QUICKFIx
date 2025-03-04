@@ -7,7 +7,7 @@
   "contact": "Dae.anthony@gmail.com",
   "homepage": "http://unionrolistes.fr/",
   
-  "version": "0.2.14",
+  "version": "0.2.15",
   "factorio_version": "2.0",
   "dependencies": ["base", "? KS_Power", "? Factorio-Tiberium"]
 }

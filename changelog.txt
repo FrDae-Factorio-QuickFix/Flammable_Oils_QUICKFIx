@@ -1,4 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.15
+Date: 2025-03-04
+  Info:
+    - Updated by Kannagi
+  Changes:
+    - Changed it from global to local instances. 
+    - Updated from game.fluid_prototypes to prototypes.fluid_prototypes.
+    - Updated from oil-fire-flame to fire-flame 
+---------------------------------------------------------------------------------------------------
 Version: 0.2.14
 Date: 02. 11. 2024
   Info:
