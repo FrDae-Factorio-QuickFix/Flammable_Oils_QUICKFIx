@@ -1,39 +1,39 @@
 local flammable_types = 
-{
-["crude-oil"] = true,
-["heavy-oil"] = true,
-["light-oil"] = true,
-["lubricant"] = true,
-["gas-hydrogen"] = true,
-["gas-methane"] = true,
-["gas-ethane"] = true,
-["gas-butane"] = true,
-["gas-propene"] = true,
-["liquid-naphtha"] = true,
-["liquid-mineral-oil"] = true,
-["liquid-fuel-oil"] = true,
-["gas-methanol"] = true,
-["gas-ethylene"] = true,
-["gas-benzene"] = true,
-["gas-synthesis"] = true,
-["gas-butadiene"] = true,
-["gas-phenol"] = true,
-["gas-ethylbenzene"] = true,
-["gas-styrene"] = true,
-["gas-formaldehyde"] = true,
-["gas-polyethylene"] = true,
-["gas-glycerol"] = true,
-["gas-natural-1"] = true,
-["liquid-multi-phase-oil"] = true,
-["gas-raw-1"] = true,
-["liquid-condensates"] = true,
-["liquid-ngl"] = true,
-["gas-chlor-methane"] = true,
-["hydrogen"] = true,
-["liquid-fuel"] = true,
-["diesel-fuel"] = true,
-["petroleum-gas"] = true
-}
+  {
+    ["crude-oil"] = true,
+    ["heavy-oil"] = true,
+    ["light-oil"] = true,
+    ["lubricant"] = true,
+    ["gas-hydrogen"] = true,
+    ["gas-methane"] = true,
+    ["gas-ethane"] = true,
+    ["gas-butane"] = true,
+    ["gas-propene"] = true,
+    ["liquid-naphtha"] = true,
+    ["liquid-mineral-oil"] = true,
+    ["liquid-fuel-oil"] = true,
+    ["gas-methanol"] = true,
+    ["gas-ethylene"] = true,
+    ["gas-benzene"] = true,
+    ["gas-synthesis"] = true,
+    ["gas-butadiene"] = true,
+    ["gas-phenol"] = true,
+    ["gas-ethylbenzene"] = true,
+    ["gas-styrene"] = true,
+    ["gas-formaldehyde"] = true,
+    ["gas-polyethylene"] = true,
+    ["gas-glycerol"] = true,
+    ["gas-natural-1"] = true,
+    ["liquid-multi-phase-oil"] = true,
+    ["gas-raw-1"] = true,
+    ["liquid-condensates"] = true,
+    ["liquid-ngl"] = true,
+    ["gas-chlor-methane"] = true,
+    ["hydrogen"] = true,
+    ["liquid-fuel"] = true,
+    ["diesel-fuel"] = true,
+    ["petroleum-gas"] = true
+  }
 
 script.on_event(defines.events.on_entity_died, function(event)
 
@@ -49,8 +49,10 @@ script.on_event(defines.events.on_entity_died, function(event)
         entity.fluidbox[k] = pot
         local max_amount = entity.fluidbox[k].amount
         local fraction = amount/max_amount
-        flammable_explosion(entity, fraction)
-        break
+        if fraction > 0.025 then 
+          flammable_explosion(entity, fraction)
+          return
+        end
       end
     end
   end
@@ -58,8 +60,8 @@ script.on_event(defines.events.on_entity_died, function(event)
 end)
 
 function flammable_explosion(entity,fraction)
+
   if not entity.valid then return end
-  
   local pos = entity.position
   local surface = entity.surface
   local radius = 0.5*((entity.bounding_box.right_bottom.x - pos.x)+(entity.bounding_box.right_bottom.y - pos.y))
@@ -83,16 +85,18 @@ function flammable_explosion(entity,fraction)
   
   if entity.type == "pipe-to-ground" then
     if entity.neighbours then
-      if entity.neighbours[2] then
-        if entity.neighbours[2].valid then
-          if entity.neighbours[2].type == "pipe-to-ground" then
-            surface.create_entity{name = "fire-flame", position = entity.neighbours[2].position}
-            entity.neighbours[2].damage(damage,entity.force,"explosion")
+      local neighbour = entity.neighbours[2]
+      if neighbour then
+        if neighbour.valid then
+          if neighbour.type == "pipe-to-ground" then
+            surface.create_entity{name = "fire-flame", position = neighbour.position}
+            neighbour.damage(damage,entity.force,"explosion")
           end
         end
       end
     end
   end
+  
   for k, nearby in pairs (surface.find_entities(area)) do
     if nearby.valid then
       if nearby.health then
