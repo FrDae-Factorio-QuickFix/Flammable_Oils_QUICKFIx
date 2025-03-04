@@ -1,8 +1,26 @@
 ---------------------------------------------------------------------------------------------------
-Version: 0.2.13
+Version: 0.2.15
 Date: 2025-03-04
+  Info:
+    - Updated by Kannagi
   Changes:
-    - Replaced deprecated fields
+    - Changed it from global to local instances. 
+    - Updated from game.fluid_prototypes to prototypes.fluid_prototypes.
+    - Updated from oil-fire-flame to fire-flame 
+---------------------------------------------------------------------------------------------------
+Version: 0.2.14
+Date: 02. 11. 2024
+  Info:
+    - Updated by Fr_Dae
+  Changes:
+    - synthax fix
+---------------------------------------------------------------------------------------------------
+Version: 0.2.13
+Date: 02. 11. 2024
+  Info:
+    - Updated by Fr_Dae
+  Changes:
+    - 2.0 update first try
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.12
 
@@ -15,11 +33,13 @@ Version: 0.2.11
     - del 🔥
     - add ks_power in description
     - pollution value (main()#2480)fucktorus
+    
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.10
 
   Change:
     - data missing
+ 
 
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.9
