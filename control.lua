@@ -98,14 +98,14 @@ function flammable_explosion(entity, fraction)
   
   if width <= 1 then
     entity.surface.create_entity{name = "explosion", position = pos}
-    entity.surface.create_entity{name = "oil-fire-flame", position = pos}
+    entity.surface.create_entity{name = "oil-fire-flame", position = pos, raise_built =true}
   else
     surface.create_entity{name = "medium-explosion", position = {pos.x+math.random(-radius,radius), pos.y+math.random(-radius,radius)}}
     for k = 1, math.ceil(width) do
-      surface.create_entity{name = "oil-fire-flame", position = {pos.x+math.random(-radius,radius), pos.y+math.random(-radius,radius)}}
+      surface.create_entity{name = "oil-fire-flame", position = {pos.x+math.random(-radius,radius), pos.y+math.random(-radius,radius)}, raise_built =true}
       for j = 1, math.ceil(4 * fraction) do
         local burst = width + (2 * fraction)
-        surface.create_entity{name = "oil-fire-flame", position = {pos.x+math.random(-burst,burst), pos.y+math.random(-burst,burst)}}
+        surface.create_entity{name = "oil-fire-flame", position = {pos.x+math.random(-burst,burst), pos.y+math.random(-burst,burst)}, raise_built =true}
       end
     end
   end
@@ -114,7 +114,7 @@ function flammable_explosion(entity, fraction)
     if entity.neighbours then
       for k, neighbour in pairs (entity.neighbours[1]) do
         if neighbour and neighbour.valid and (neighbour.type == "pipe-to-ground") then
-          surface.create_entity{name = "oil-fire-flame", position = neighbour.position}
+          surface.create_entity{name = "oil-fire-flame", position = neighbour.position, raise_built =true}
           neighbour.damage(damage, entity.force, "explosion")
           break
         end
