@@ -1,11 +1,11 @@
 {
  "name": "Flammable_Oils_QUICKFIX",
- "version": "0.2.7",
+ "version": "0.2.8",
  "title": "Flammable_Oils_QUICKFIX",
- "author": "Klonan, OwnlyMe",
- "contact": "https://mods.factorio.com/mod/fire_department",
- "homepage": "https://mods.factorio.com/mod/Flammable_Oils/",
- "description": "Pipes and storage tanks and stuff will catch fire and explode",
- "factorio_version": "0.18",
- "dependencies": ["base >= 0.18"]
+ "author": "Fr_Dae, Pi-c",
+ "contact": "Dae.anthony@gmail.com",
+ "homepage": "http://unionrolistes.fr/",
+ "description": "Pipes and storage tanks and stuff will catch fire and explode (original mod Klonan, OwnlyMe)",
+ "factorio_version": "1.0",
+ "dependencies": ["base >= 0.18", "!Flammable_Oils"]
  }

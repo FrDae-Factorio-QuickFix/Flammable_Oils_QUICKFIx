@@ -6,18 +6,18 @@ fire.damage_per_tick = {amount = 1, type = "fire"},
 data:extend({fire})
 
 local fuel_values = {
-	["crude-oil"] = "0.4MJ",
-	["light-oil"] = "0.9MJ",
-	["heavy-oil"] = "0.45MJ",
-	["petroleum-gas"] = "0.45MJ",
-	["diesel-fuel"] = "1.1MJ",
-	}
+  ["crude-oil"] = "0.4MJ",
+  ["light-oil"] = "0.9MJ",
+  ["heavy-oil"] = "0.45MJ",
+  ["petroleum-gas"] = "0.45MJ",
+  ["diesel-fuel"] = "1.1MJ"
+  }
 local emissions = {
   ["crude-oil"] = 1.4,
   ["light-oil"] = 1.2,
   ["heavy-oil"] = 1.3,
   ["petroleum-gas"] = 1,
-  ["diesel-fuel"] = 0.8,
+  ["diesel-fuel"] = 0.8
 }
 
 for k, fluid in pairs (data.raw.fluid) do

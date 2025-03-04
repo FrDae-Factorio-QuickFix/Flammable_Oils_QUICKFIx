@@ -35,7 +35,9 @@ init_flammable_types = function()
     ["hydrogen"] = true,
     ["liquid-fuel"] = true,
     ["diesel-fuel"] = true,
-    ["petroleum-gas"] = true
+    ["petroleum-gas"] = true,
+    ["water"] = false,
+    ["sulfuric-acid "] = false
   }
   flammable_types = global.flammable_types
 end
