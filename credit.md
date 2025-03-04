@@ -3,3 +3,4 @@
 - Klonan
 - DarkyPupu 0.2.2 - v0.18
 - Fr_Dae 0.2.3 - v0.18
+- Hannah97Gamer 0.2.09 - v1.1
