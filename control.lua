@@ -49,7 +49,9 @@ script.on_event(defines.events.on_entity_died, function(event)
         entity.fluidbox[k] = pot
         local max_amount = entity.fluidbox[k].amount
         local fraction = amount/max_amount
-        flammable_explosion(entity, fraction)
+        if fraction > 0.025 then 
+          flammable_explosion(entity, fraction)
+        end
         break
       end
     end
@@ -58,8 +60,8 @@ script.on_event(defines.events.on_entity_died, function(event)
 end)
 
 function flammable_explosion(entity,fraction)
+
   if not entity.valid then return end
-  
   local pos = entity.position
   local surface = entity.surface
   local radius = 0.5*((entity.bounding_box.right_bottom.x - pos.x)+(entity.bounding_box.right_bottom.y - pos.y))
@@ -93,6 +95,7 @@ function flammable_explosion(entity,fraction)
       end
     end
   end
+  
   for k, nearby in pairs (surface.find_entities(area)) do
     if nearby.valid then
       if nearby.health then
