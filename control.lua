@@ -1,7 +1,7 @@
 local flammable_types
 
 init_flammable_types = function()
-  storage.flammable_types =
+  global.flammable_types =
   {
     ["crude-oil"] = true,
     ["heavy-oil"] = true,
@@ -45,31 +45,31 @@ init_flammable_types = function()
     ["liquid-tiberium"] = true,
     ["tiberium-slurry-blue"] = false,
   }
-  flammable_types = storage.flammable_types
+  flammable_types = global.flammable_types
 end
 
 script.on_init(init_flammable_types)
 script.on_configuration_changed(function()
-  if not storage.flammable_types then
+  if not global.flammable_types then
     init_flammable_types()
   end
-  flammable_types = storage.flammable_types
+  flammable_types = global.flammable_types
 end)
 
 script.on_load(function()
-  flammable_types = storage.flammable_types
+  flammable_types = global.flammable_types
 end)
 
 remote.add_interface("flammable_oils", 
 {
   add_flammable_type = function(name)
-    storage.flammable_types[name] = true
+    global.flammable_types[name] = true
   end,
   remove_flammable_type = function(name)
-    storage.flammable_types[name] = nil
+    global.flammable_types[name] = nil
   end,
   get_flammable_types = function()
-    return storage.flammable_types
+    return global.flammable_types
   end
 })
 
@@ -80,7 +80,7 @@ script.on_event(defines.events.on_entity_died, function(event)
   local boxes = entity.fluidbox
   local num_pots = #boxes
   if num_pots == 0 then return end
-  local fluids = prototypes.fluid
+  local fluids = game.fluid_prototypes
   for k = 1, num_pots do
     local pot = boxes[k]
     if pot then 
