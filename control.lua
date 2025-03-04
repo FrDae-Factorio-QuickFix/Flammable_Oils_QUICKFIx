@@ -79,8 +79,8 @@ script.on_event(defines.events.on_entity_died, function(event)
     local pot = boxes[k]
     if pot then 
       if flammable_types[pot.name] then
-        local fraction = pot.amount/boxes.get_capacity(k)
-        if fraction > 0.025 then 
+        local fraction = math.log(pot.amount)/4
+        if fraction > 0.01 then 
           return flammable_explosion(entity, fraction)
         end
       end
@@ -94,9 +94,9 @@ function flammable_explosion(entity, fraction)
   local pos = entity.position
   local surface = entity.surface
   local radius = 0.5 * ((entity.bounding_box.right_bottom.x - pos.x) + (entity.bounding_box.right_bottom.y - pos.y))
-  local width = radius * 2
+  local width = radius * 4
   local area = {{pos.x - (radius + 0.5),pos.y - (radius + 0.5)},{pos.x + (radius + 0.5),pos.y + (radius + 0.5)}}
-  local damage = math.random(20, 40) * fraction
+  local damage = math.random(30, 60) * fraction
   
   if width <= 1 then
     entity.surface.create_entity{name = "explosion", position = pos}
@@ -117,7 +117,7 @@ function flammable_explosion(entity, fraction)
       for k, neighbour in pairs (entity.neighbours[1]) do
         if neighbour and neighbour.valid and (neighbour.type == "pipe-to-ground") then
           surface.create_entity{name = "oil-fire-flame", position = neighbour.position, raise_built =true}
-          neighbour.damage(damage, entity.force, "explosion")
+          --neighbour.damage(damage, entity.force, "explosion")
           break
         end
       end
@@ -126,7 +126,7 @@ function flammable_explosion(entity, fraction)
   
   for k, nearby in pairs (surface.find_entities(area)) do
     if nearby.valid and nearby.health then
-      nearby.damage(damage, entity.force, "explosion")
+      --nearby.damage(damage, entity.force, "explosion")
     end
   end
 
