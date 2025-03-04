@@ -6,12 +6,12 @@ fire.damage_per_tick = {amount = 1, type = "fire"},
 data:extend({fire})
 
 local fuel_values = {
-  ["crude-oil"] = "2.5MJ",
-  ["light-oil"] = "3MJ",
-  ["heavy-oil"] = "2MJ",
-  ["petroleum-gas"] = "3MJ",
-  ["diesel-fuel"] = "4MJ",
-}
+	["crude-oil"] = "0.4MJ",
+	["light-oil"] = "0.9MJ",
+	["heavy-oil"] = "0.45MJ",
+	["petroleum-gas"] = "0.45MJ",
+	["diesel-fuel"] = "1.1MJ",
+	}
 
 for k, fluid in pairs (data.raw.fluid) do
   if not fluid.fuel_value then
