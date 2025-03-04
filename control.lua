@@ -37,13 +37,13 @@ init_flammable_types = function()
     ["diesel-fuel"] = true,
     ["petroleum-gas"] = true,
     ["water"] = false,
-    ["sulfuric-acid "] = false
-    ["molten-tiberium"] = true
-    ["tiberium-waste"] = false
-    ["tiberium-sludge"] = false
-    ["tiberium-slurry"] = false
-    ["liquid-tiberium"] = true
-    ["tiberium-slurry-blue"] = false
+    ["sulfuric-acid "] = false,
+    ["molten-tiberium"] = true,
+    ["tiberium-waste"] = false,
+    ["tiberium-sludge"] = false,
+    ["tiberium-slurry"] = false,
+    ["liquid-tiberium"] = true,
+    ["tiberium-slurry-blue"] = false,
   }
   flammable_types = global.flammable_types
 end
