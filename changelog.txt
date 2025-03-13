@@ -1,4 +1,15 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.16
+Date: 2025-03-13
+  Info:
+    - Updated by MsBinaryLily
+  Changes:
+    - Updated from fire-flame to oil-fire-flame 
+    - Buffed oil-fire-flame so it destroys pipes more reliably
+    - Added automatic burnable fluid and gas detection
+    - Ensured fuel values and pollution values are updated correctly
+    - Introduced energy, rather then just fraction, into explosion damage and radius calculation
+---------------------------------------------------------------------------------------------------
 Version: 0.2.15
 Date: 2025-03-04
   Info:
