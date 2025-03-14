@@ -7,6 +7,11 @@ Date: 2025-03-14
     - Switched to new (cubic rather than quadratic) formula for damage and radius calculation
     - Added extra linear falloff for damage depending on radius from center 
     - Reduced the pollution by factor by 10
+  Info:
+    - Updated by Fr_Dae
+    - add lily on Json
+    - remove zip from repo
+    - remove old issue screnshoot
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.16
 Date: 2025-03-13
