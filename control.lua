@@ -141,8 +141,8 @@ end)
 function flammable_explosion(entity, fraction, pollution, energy, damage_type)
   if not entity.valid then return end
 
-  local explosion_radius = 0.1 * math.sqrt(energy) -- Assumming 100 MJ baseline, radius will be 1
-  local explosion_damage = 5 * math.sqrt(energy) -- Assumming 100 MJ baseline, damage will be 50
+  local explosion_radius = 0.1 * math.pow(energy * 10, 1/3)-- Assumming 100 MJ baseline, radius will be 1
+  local explosion_damage = 5 * math.pow(energy * 10, 1/3)-- Assumming 100 MJ baseline, damage will be 50
 
   local pos = entity.position
   local surface = entity.surface
@@ -152,7 +152,7 @@ function flammable_explosion(entity, fraction, pollution, energy, damage_type)
 
   --local damage = math.random(20, 40) * fraction
   
-  surface.pollute(pos, pollution)
+  surface.pollute(pos, pollution / 10) -- Apparently normal amount is too much, let's / 10
   
 	if width <= 1 then
 		
@@ -200,7 +200,10 @@ function flammable_explosion(entity, fraction, pollution, energy, damage_type)
   
   for k, nearby in pairs(surface.find_entities(area)) do
     if nearby.valid and nearby.health then
-      nearby.damage(explosion_damage, entity.force, damage_type)
+      local distance = math.sqrt((nearby.position.x - pos.x) ^ 2 + (nearby.position.y - pos.y) ^ 2)
+
+
+      nearby.damage(math.max(0, explosion_damage * (1 - distance / explosion_radius)), entity.force, damage_type) --linear falloff
     end
   end
 
