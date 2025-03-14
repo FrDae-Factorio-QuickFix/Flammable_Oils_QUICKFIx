@@ -7,3 +7,4 @@
 - Skorpyo 0.2.010 - v1.1 pvp version
 - Kannagimoe 0.2.15 - v2.0
 - lilys-incendiaries (lily) 0.2.15 - v2.0, review
+- IonShield(MsBinaryLily) - 0.2.17
