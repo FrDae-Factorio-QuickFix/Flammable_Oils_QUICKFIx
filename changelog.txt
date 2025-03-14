@@ -1,6 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.17
 Date: 2025-03-14
+  Info:
+    - Updated by MsBinaryLily
   Changes:
     - Switched to new (cubic rather than quadratic) formula for damage and radius calculation
     - Added extra linear falloff for damage depending on radius from center 
