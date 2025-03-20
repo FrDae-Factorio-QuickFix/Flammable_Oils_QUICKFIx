@@ -115,6 +115,9 @@ remote.add_interface("flammable_oils", {
 
 -- Event handler for entities that died
 script.on_event(defines.events.on_entity_died, function(event)
+  if event.entity.type == "pump" then
+    return 
+  end
   local entity = event.entity
   local boxes = entity.fluidbox
   local num_pots = #boxes
