@@ -118,6 +118,25 @@ script.on_event(defines.events.on_entity_died, function(event)
   if event.entity.type == "pump" then
     return 
   end
+
+  local chances = {
+    ["fire"] = 0.95,
+    ["explosion"] = 0.75,
+    ["acid"] = 0.5,
+    ["electric"] = 0.5,
+    ["laser"] = 0.5
+  }
+  
+
+  local damage_type = event.damage_type
+  if not damage_type then
+    return
+  end
+  if not chances[damage_type] or chances[damage_type] < math.random() then
+    return
+  end
+
+
   local entity = event.entity
   local boxes = entity.fluidbox
   local num_pots = #boxes
