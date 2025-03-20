@@ -132,7 +132,7 @@ script.on_event(defines.events.on_entity_died, function(event)
   if not damage_type then
     return
   end
-  if not chances[damage_type] or chances[damage_type] < math.random() then
+  if not chances[damage_type.name] or chances[damage_type.name] < math.random() then
     return
   end
 

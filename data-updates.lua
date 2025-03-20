@@ -1,8 +1,8 @@
 require "util"
 local fire = util.table.deepcopy(data.raw.fire["fire-flame"])
-fire.initial_lifetime = 1200
+fire.initial_lifetime = 3000
 fire.name="oil-fire-flame"
-fire.damage_per_tick = {amount = 2, type = "fire"}
+fire.damage_per_tick = {amount = 1, type = "fire"}
 ---@diagnostic disable-next-line: assign-type-mismatch
 data:extend({fire})
 
