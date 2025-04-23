@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.21
+Date: 2025-04-23
+  Changes:
+    - Added some fluids from cubeine mod to override list
+    - Added global settings to control raddius and damage of the explsions
+---------------------------------------------------------------------------------------------------
 Version: 0.2.20
 Date: 2025-03-20
   Changes:
