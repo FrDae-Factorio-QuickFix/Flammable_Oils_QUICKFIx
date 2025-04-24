@@ -7,7 +7,7 @@
   "contact": "Dae.anthony@gmail.com",
   "homepage": "https://github.com/FrDae-Factorio-QuickFix/Flammable_Oils_QUICKFIx",
   
-  "version": "0.2.20",
+  "version": "0.2.21",
   "factorio_version": "2.0",
   "dependencies": [
     "base", 
