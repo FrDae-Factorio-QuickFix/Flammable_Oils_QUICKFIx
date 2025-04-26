@@ -7,13 +7,13 @@
   "contact": "Dae.anthony@gmail.com",
   "homepage": "https://github.com/FrDae-Factorio-QuickFix/Flammable_Oils_QUICKFIx",
   
-  "version": "0.2.21",
+  "version": "0.2.22",
   "factorio_version": "2.0",
   "dependencies": [
     "base", 
     "? KS_Power", 
     "? Factorio-Tiberium",
-    "? water-turret2",
+    "? WaterTurret-revived",
     "? lilys-incendiaries"
      ]
 }
